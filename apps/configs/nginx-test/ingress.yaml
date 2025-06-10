@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-test-ingress
+  namespace: nginx-test
+  annotations:
+    # Cert-Manager pentru SSL automatizat
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    # Cilium Ingress specific
+    ingress.cilium.io/loadbalancer-mode: "shared"
+    # Security headers
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # Rate limiting (opțional)
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+spec:
+  ingressClassName: cilium
+  tls:
+  - hosts:
+    - webserver.k8s.merox.dev
+    secretName: nginx-test-tls
+  rules:
+  - host: webserver.k8s.merox.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-test
+            port:
+              number: 80
