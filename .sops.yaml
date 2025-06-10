@@ -3,9 +3,9 @@ creation_rules:
   - path_regex: .*\.sops\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1v9eqrfhwu8cxtmtdydkhc53dh9rr2e3evk6ydk86mymf8htwdsasflr2jx
+      mykey
   # Also catch any file with 'secret' in the name
   - path_regex: .*secret.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     age: >-
-      age1v9eqrfhwu8cxtmtdydkhc53dh9rr2e3evk6ydk86mymf8htwdsasflr2jx
+      mykey
